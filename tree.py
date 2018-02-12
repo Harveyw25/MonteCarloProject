@@ -17,12 +17,40 @@ class tree:
             
         return temp
 
-    def expansion(node):
+    def expansion(self, Node):
         actions = random.randint(1, 5)
 
         for x in range(0, actions+1):
             nodeToAdd = node()
             nodeToAdd.parent = node
             
-            node.children.append(nodeToAdd)
-    
+            Node.children.append(nodeToAdd)
+
+    def simulation(self, Node):
+        Node.value = random.randint(-20, 20)
+
+    def backprop(self, n):
+        valueToAdd = n.value
+        times = n.timesVisited
+        n.timesVisited = times + 1 
+        n = node.parent
+        
+        while(n != self.root):
+            times = n.timesVisited
+            n.timesVisited = times + 1
+            n.value = valueToAdd + node.value
+
+    def print(self, node):
+        print(node.timesVisited, node.value)
+        
+MC = tree()
+
+MC.expansion(MC.root)
+Node = MC.selection()
+MC.print(Node)
+MC.simulation(Node)
+MC.print(Node)
+MC.backprop(Node)
+
+MC.print(MC.root)
+

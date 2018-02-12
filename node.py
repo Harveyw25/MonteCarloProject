@@ -1,7 +1,7 @@
 import math
 
 class node:
-    parent = None
+    parent = 0
     timesVisited = 0
     value = 0
     children = []
