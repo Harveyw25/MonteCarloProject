@@ -10,12 +10,11 @@ class node:
         self.children = []
         self.selectionConstant = 2
         self.root = False
+        self.dead = False
 
     def selectionScore(self, n):
         if self.timesVisited == 0:
             return math.inf
-        elif n == 999999999:
-            return -99999999999999999
         else:
-            return ((self.value/self.timesVisited)+self.selectionConstant*(math.sqrt(math.log(n)/self.timesVisited)))
+            return ((self.value/self.timesVisited)+(self.selectionConstant*(math.sqrt(math.log(n)/self.timesVisited))))
 

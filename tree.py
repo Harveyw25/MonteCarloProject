@@ -13,30 +13,32 @@ class tree:
         print("Name:", node.name, "Visited:", node.timesVisited, "Value:", node.value, "Children", len(node.children))
     
     def selection(self):
-        highestScore = node()
-        highestScore.timesVisited = 999999999
         temp = self.root
-
-        i = 0
         
-        while temp.timesVisited != 0:
+        while temp.timesVisited != 0 or temp == self.root:
+            checker = temp
             
+            for x in range(0, len(temp.children)):
+                if temp.children[x].selectionScore(self.root.timesVisited) > temp.children[0].selectionScore(self.root.timesVisited):
+                    temp.children.insert(0, temp.children.pop(x))
+
             for x in temp.children:
-                highestScore = node()
-                highestScore.timesVisited = 999999999
-                print("comparing", x.name, highestScore.name)
-                if x.selectionScore(self.root.timesVisited) > highestScore.selectionScore(self.root.timesVisited):
-                    highestScore = x
-                    #print(x.name, "Wins")
-            temp = highestScore
-            i += 1
-            if temp.timesVisited == 999999999 or i == 1000:
+                if x.timesVisited == 0:
+                    return x
+
+            for x in temp.children:        
+                if len(x.children) != 0 and not x.dead:
+                    temp = x
+                    break
+                
+            if checker == temp:
+                temp.dead = True
                 return 0
 
-        return temp
+        
 
     def expansion(self, Node):
-        actions = random.randint(0, 4)
+        actions = random.randint(0, 2)
         for x in range(0, actions):
             nodeToAdd = node()
             nodeToAdd.parent = Node
@@ -69,7 +71,9 @@ class tree:
 
     def cont(self):
         node = self.selection()
+        
         if node != 0:
+            
             self.simulation(node)
             self.expansion(node)
             self.backprop(node)
@@ -77,6 +81,23 @@ class tree:
             return False
         else:
             return True
+
+    def best(self):
+        temp = self.root
+
+        while len(temp.children) != 0:
+            self.printNode(temp)
+
+            for x in range(1, len(temp.children)):
+                if temp.children[x].value > temp.children[0].value:
+                    temp.children.insert(0, temp.children.pop(x))
+
+            temp = temp.children[0]
+
+        if temp.timesVisited != 0:
+            self.printNode(temp)
+
+            
     
         
 MC = tree()
@@ -89,5 +110,7 @@ end = False
 MC.printNode(MC.root)
 
 while (not end) or (time.time() < timer):
-    end = MC.cont()    
+    end = MC.cont()
+
+MC.best()
 
