@@ -4,11 +4,13 @@ import random
 import time
 
 class tree:
-    root = node()
-    root.root = True
-    root.timesVisited = 1
-    root.name += "1"
+    
 
+    def __init__(self, game):
+        self.root = node(game)
+        self.root.root = True
+        self.root.timesVisited = 1
+        self.root.name += "1"
 
     def printNode(self, node):
         print("Name:", node.name, "Visited:", node.timesVisited, "Value:", node.value, "Children", len(node.children))
@@ -39,15 +41,10 @@ class tree:
         
 
     def expansion(self, Node):
-        actions = random.randint(0, 2)
-        for x in range(0, actions):
-            nodeToAdd = node()
-            nodeToAdd.parent = Node
-            nodeToAdd.name = nodeToAdd.parent.name + "-" + str(x)
-            Node.children.append(nodeToAdd)
+        Node.game.findActions(Node)
 
     def simulation(self, Node):
-        Node.value = random.randint(0, 20)
+        Node.value = Node.game.simAction(Node)
 
 
     def backprop(self, n):

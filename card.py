@@ -2,8 +2,9 @@
 
 class card:
 
-    def __init__(self, name, manaCost, power, defense):
+    def __init__(self, name, mana, attack, health):
         self.name = name
-        self.mana = manaCost
-        self.attack = power
-        self.health = defense
+        self.mana = mana
+        self.attack = attack
+        self.health = health
+        self.ableToAttack = True

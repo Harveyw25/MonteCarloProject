@@ -1,9 +1,11 @@
 import math
 
+
 class node:
 
-    def __init__(self):
+    def __init__(self, game):
         self.name = ""
+        self.game = game
         self.parent = None
         self.timesVisited = 0
         self.value = 0
